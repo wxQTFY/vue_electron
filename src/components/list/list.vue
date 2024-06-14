@@ -1,15 +1,19 @@
 <script setup>
    import { ref } from 'vue'
    import { CircleCloseFilled } from '@element-plus/icons-vue'
+
+   import  useWebsiteStore  from '@/store/websiteStore'
+
+   const websiteStore = useWebsiteStore()
 </script>
 
 <template>
    <div>
-      <el-empty description="暂无数据"  />
-      <div id="items"  >
-        <div class="read-item">
-            <el-image  class="img"  />
-            <h2>百度一下哈哈哈</h2>
+      <el-empty description="暂无数据"  v-if="websiteStore.websites.length <= 0" />
+      <div id="items"  v-else>
+        <div class="read-item" v-for="ws, i in websiteStore.websites">
+            <el-image :src="ws.screenshot" class="img"  />
+            <h2>{{ws.title}}</h2>
             <!-- <el-button type="primary" :icon="Delete" /> -->
             <el-icon  class="delect">
                 <CircleCloseFilled />
