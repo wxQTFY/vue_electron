@@ -17,13 +17,22 @@ const getSource = ( url ) => {
             try{
                 //NativeImage图片
                 const image = await win.webContents.capturePage()
-                const screenshot = image.toDataURL()
+                console.log(image)
                 
-                resolve({
-                    title,
-                    screenshot,
-                    url
-                })
+                if (image.isEmpty()) {
+                    resolve({
+                        msg:'站点错误，请重新输入'
+                    }
+                    )
+                } else {
+                    const screenshot = image.toDataURL()
+                    resolve({
+                        title,
+                        screenshot,
+                        url
+                    })  
+                }
+                
             }catch(e){
                 reject(e)
             }

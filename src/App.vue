@@ -1,6 +1,7 @@
 <script setup>
 import { provide,ref } from "vue";
-import Home from './components/Home.vue'
+import Header from './components/Header.vue'
+
 
 //窗口显示状态
 const isShow = ref(false)
@@ -13,10 +14,20 @@ provide('dialog-visible',{
   setIsShow,
 })
 
+//定义搜索中关键字
+const keywords = ref('')
+const setKeywords = ( value ) => {
+  keywords.value = value
+}
+provide('searchbar-keywords',{
+  keywords,
+  setKeywords
+})
 </script>
 
 <template>
-  <Home></Home>
+  <Header></Header>
+  <router-view></router-view>
 </template>
 
 <style scoped>

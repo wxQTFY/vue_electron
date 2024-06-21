@@ -1,19 +1,25 @@
 <script  setup>
-   import { inject,ref } from 'vue'
+   import { inject } from 'vue'
    import { Plus } from '@element-plus/icons-vue'
+   import _ from 'lodash';
 
    const { setIsShow } = inject('dialog-visible')
+
+   const { keywords,setKeywords } = inject('searchbar-keywords')
    const handclick = () => {
     setIsShow(true)
    } 
-      
+    
+   const search = _.debounce( ( e ) => {
+      setKeywords(e.target.value)}
+      ,500)  
 </script>
 
 <template>
    <div class="search-container">
         <el-button class="button"  type="primary" :icon="Plus" @click="handclick" />
         <div class="input">
-            <el-input class="input-c" style="width: 100%" placeholder="请输入关键字" />
+            <el-input class="input-c" v-model="keywords" @keyup="search" style="width: 100%" placeholder="请输入关键字" />
         </div>
     </div>
 

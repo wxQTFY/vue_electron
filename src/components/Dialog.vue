@@ -6,15 +6,16 @@
    const websiteStore = useWebsiteStore()
    const { isShow,setIsShow } = inject('dialog-visible')
    
-   const url = ref('https://www.baidu.com/')
+   const url = ref('https://wwww.baidu.com/')
 
    const isSubmit = ref(false)
 
    const handAddClick = async () => {
     isSubmit.value = true
-    const result = await myAPI.sendUrl(url.value)
+    const result = await myApi.sendUrl(url.value)
 
     if(result.msg){
+      myApi.alert(result.msg)
       isSubmit.value = false
     }else{
       websiteStore.add(result)
@@ -28,6 +29,7 @@
 
    const handCancelClick = () => {
     setIsShow(false)
+    url.value=''
    }
    
 </script>
@@ -36,10 +38,10 @@
    <div class="dialog-warp"  v-if="isShow">
       <div class="content">
         <div class="input">
-            <el-input  v-model="url" :disabled="isSubmit" placeholder="请输入网址" />
+            <el-input  v-model="url" @keyup.enter="handAddClick" :disabled="isSubmit" placeholder="请输入网址" />
         </div>
         <div class="btns">
-            <el-button :disabled="isSubmit" @click="handAddClick" >添加</el-button>
+            <el-button :disabled="isSubmit" @click="handAddClick"  >添加</el-button>
             <el-button :disabled="isSubmit" @click="handCancelClick" >取消</el-button>
       </div>
       </div>

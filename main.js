@@ -5,12 +5,22 @@ const  WinState  = require ('electron-win-state').default
 //调用网站截图
 require('./controller/getSource')
 
+//调用alert
+require('./controller/alert')
+
+//调用openWindow打开窗口
+require('./controller/openWindow')
+
+
 
 const createWindow = () => {
     const winState = new WinState({
         //自定义窗口状态
         defaultWidth:1000,
         defaultHeight:800, 
+        electronStoreOptions:{
+             name: 'window-state-main' 
+        }
     })
     const win = new BrowserWindow({
         //自定义窗口状态
